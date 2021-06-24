@@ -14,3 +14,11 @@
  *= require_self
  */
  @import "bulma";
+
+.navbar {
+   background-color: tomato;
+ }
+
+.navbar-brand .title {
+  color: white;
+}
