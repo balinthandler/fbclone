@@ -1,0 +1,44 @@
+<div class="section">
+  <div class="container">
+    <div class="columns">
+    <div class="column">
+        <div class="message">
+          <div class="message-header">
+            Friend Requests
+          </div>
+          <div class="message-body">
+            <% Invitation.where(friend_id: current_user.id).where(confirmed: false).each do |invitation|%>
+              <div class="block">
+                <%= "#{invitation.user.firstname} #{invitation.user.lastname} "%>
+                <br />
+                <%= link_to "Accept", invitations_update_path(id: invitation.id), class: "button is-primary"%>
+                <%= link_to "Decline", invitations_destroy_path(user_id: invitation.user_id, friend_id: current_user.id), class: "button is-danger"%>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <div class="column is-half">
+        <div class="level">
+          <div class="level-item">
+
+          </div>
+        </div>
+      </div>
+      <div class="column">
+        <div class="message">
+          <div class="message-header">
+            Find friends
+          </div>
+          <div class="message-body">
+            <% @users.where.not(id: current_user.id).each do |user| %>
+              <div class="block">
+                <%= link_to "#{user.firstname} #{user.lastname}", user_path(user) %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

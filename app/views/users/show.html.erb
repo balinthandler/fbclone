@@ -1,0 +1,26 @@
+<div class="section">
+  <div class="container">
+    <div class="columns">
+      <div class="column is-half is-offset-one-quarter">
+        <div class="level">
+          <div class="level-item">
+
+
+          </div>
+        </div>
+        <div class="message">
+          <div class="message-header">
+            <%= "#{@user.firstname} #{@user.lastname}"%>
+          </div>
+          <div class="message-body">
+            <% if Invitation.is_already?(current_user.id, @user.id) %>
+              Invitation sent. <%= link_to "Remove request", invitations_destroy_path(id1: current_user.id, id2: @user.id) %>
+            <% else %>
+              <%= link_to "Send friend request", invitations_create_path(id: @user.id) %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

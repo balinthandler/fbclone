@@ -2,6 +2,7 @@ class PostsController < ApplicationController
   before_action :authenticate_user!
 
   def index
+    @users = User.all
   end
   
   def show
@@ -22,5 +23,5 @@ class PostsController < ApplicationController
   def update
   end
 
-  
+
 end
