@@ -11,7 +11,7 @@
               <div class="block">
                 <%= "#{invitation.user.firstname} #{invitation.user.lastname} "%>
                 <br />
-                <%= link_to "Accept", invitations_update_path(id: invitation.id), class: "button is-primary"%>
+                <%= link_to "Accept", invitations_update_path(user_id: invitation.user_id, friend_id: current_user.id), class: "button is-primary"%>
                 <%= link_to "Decline", invitations_destroy_path(user_id: invitation.user_id, friend_id: current_user.id), class: "button is-danger"%>
               </div>
             <% end %>

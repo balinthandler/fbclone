@@ -13,11 +13,7 @@
             <%= "#{@user.firstname} #{@user.lastname}"%>
           </div>
           <div class="message-body">
-            <% if Invitation.is_already?(current_user.id, @user.id) %>
-              Invitation sent. <%= link_to "Remove request", invitations_destroy_path(id1: current_user.id, id2: @user.id) %>
-            <% else %>
-              <%= link_to "Send friend request", invitations_create_path(id: @user.id) %>
-            <% end %>
+            <%= render 'friend_request_logic' %>
           </div>
         </div>
       </div>
