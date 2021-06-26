@@ -1,4 +1,9 @@
 class InvitationsController < ApplicationController
+  def index
+    @invitations = Invitation.where(friend_id: current_user.id, confirmed: false)
+    @incoming_request = Invitation.where(friend_id: current_user.id, confirmed: false)
+  end
+  
   def create
     unless Invitation.where(user_id: params[:friend_id], friend_id: current_user.id).first
       @invitation = Invitation.new(user_id: current_user.id, friend_id: params[:friend_id])

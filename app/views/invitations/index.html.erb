@@ -1,0 +1,38 @@
+<div class="section">
+  <div class="container">
+    <div class="columns">
+      <div class="column is-half is-offset-one-quarter">
+        <% if !@invitations.empty? %>
+          <div class="message">
+            <div class="message-header">
+              Friend Requests
+            </div>
+            <div class="message-body">
+              <% @invitations.each do |invitation| %>
+                <div class="level">
+                  <div class="level-left">
+                    <div class="level-item">
+                      <%= "#{invitation.user.firstname} #{invitation.user.lastname}" %>
+                    </div>
+                  </div>
+                  <div class="level-right">
+                    <div class="level-item">
+                      <div class="is-grouped">
+                        <%= link_to "Accept", invitations_update_path(user_id: invitation.user_id, friend_id: invitation.friend_id), class: "button is-primary" %>
+                        <%= link_to "Decline", invitations_destroy_path(user_id: invitation.user_id, friend_id: invitation.friend_id), class: "button is-danger" %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        <% else %>
+          <div class="box">
+            You have 0 friend request.
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

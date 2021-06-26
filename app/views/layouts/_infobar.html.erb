@@ -1,0 +1,23 @@
+<div class="column is-half">
+  <div class="level">
+  <div class="level-item">
+    <%= link_to root_path do %>
+      <span class="fa-stack fa-lg ">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-home fa-stack-1x fa-inverse"></i>
+      </span>
+    <% end %>
+  </div>
+    <div class="level-item">
+        <%= link_to invitations_index_path do %>
+          <% if @incoming_request && @incoming_request.count > 0 %> 
+            <span class="fa-stack fa-lg" data-count="<%= @incoming_request.count %>">
+          <% else %>
+            <span class="fa-stack fa-lg">
+          <% end %>
+          <i class="fa fa-circle fa-stack-2x"></i>
+          <i class="fa fa-user-alt fa-stack-1x fa-inverse"></i>
+        <% end %>
+    </div>
+  </div>
+</div>
