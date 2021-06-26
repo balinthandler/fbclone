@@ -14,7 +14,9 @@
     <% end %>
   <% else %>
     <%= link_to invitations_create_path(friend_id: @user.id), class:"button is-primary" do %>
-      <i class="fas fa-user-plus is-sm"></i> Send friend request
+      <p>
+        <i class="fas fa-user-plus is-sm"></i> Send friend request
+      </p>
     <% end %>
   <% end %>
 <% end %>

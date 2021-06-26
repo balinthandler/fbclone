@@ -1,0 +1,11 @@
+<div class="box">
+  <div class="title is-5">
+    Create new post
+  </div>
+  <%= form_with(model: @post, method: :post) do |f| %>
+    <%= f.text_area :body, placeholder: "What's on your mind, #{current_user.firstname}?", class: "textarea" %>
+    <br />
+    <%= f.hidden_field user_id: current_user.id %>
+    <%= f.submit "Create", class: "button is-info" %>
+  <% end %>
+</div>

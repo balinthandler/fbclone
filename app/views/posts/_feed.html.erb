@@ -1,0 +1,23 @@
+<% @posts.order("created_at DESC").each do |post|%>
+<div class="box">
+  <div class="level">
+    <div class="level-left">
+      <div class="level-item">
+        <div class="title is-5">
+            <%= link_to "#{post.user.firstname} #{post.user.lastname}", user_path(post.user)%>
+        </div>
+      </div>
+    </div>
+    <div class="level-right">
+      <div class="level-item">
+        <p>
+          <%= post.created_at.localtime.strftime("%H:%M %F") %>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="block">
+        <%= post.body %>
+  </div>
+</div>
+<% end %>

@@ -2,30 +2,20 @@
   <div class="container">
     <div class="columns">
     <div class="column is-7">
-      <% @posts.order("created_at DESC").each do |post|%>
-        <div class="message">
-          <div class="message-header">
-            <%= link_to "#{post.user.firstname} #{post.user.lastname}", user_path(post.user)%>
-            <%= post.created_at.localtime.strftime("%H:%M %F") %>
-          </div>
-          <div class="message-body">
-            <%= post.body %>
-          </div>
-        </div>
-      <% end %>
+      <%= render 'form' %>
+      <%= render 'feed' %>
     </div>
       <div class="column">
-        <div class="message">
-          <div class="message-header">
+        <div class="box">
+          <div class="title is-5">
             Find friends
           </div>
-          <div class="message-body">
-            <% @users.where.not(id: current_user.id).each do |user| %>
-              <div class="block">
-                <%= link_to "#{user.firstname} #{user.lastname}", user_path(user) %>
-              </div>
-            <% end %>
-          </div>
+          <% @users.where.not(id: current_user.id).each do |user| %>
+            <div class="block">
+              <%= link_to "#{user.firstname} #{user.lastname}", user_path(user) %>
+            </div>
+          <% end %>
+
         </div>
       </div>
     </div>

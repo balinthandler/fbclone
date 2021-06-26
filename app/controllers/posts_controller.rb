@@ -4,6 +4,7 @@ class PostsController < ApplicationController
   def index
     @posts = Post.all
     @users = User.all
+    @post = Post.new
     @incoming_request = Invitation.where(friend_id: current_user.id, confirmed: false)
   end
   
@@ -14,6 +15,10 @@ class PostsController < ApplicationController
   end
 
   def create
+    @post = current_user.posts.build(posts_params)
+    if @post.save
+      redirect_to root_path
+    end
   end
 
   def destroy
@@ -27,7 +32,7 @@ class PostsController < ApplicationController
 
   private
 
-  def post_params
+  def posts_params
     params.require(:post).permit(:body)
   end
 

@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   devise_for :users
   resources :users
-  resources :post
+  resources :posts
   
   get 'invitations/create'
   get 'invitations/destroy'
