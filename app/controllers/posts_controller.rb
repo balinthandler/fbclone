@@ -5,6 +5,7 @@ class PostsController < ApplicationController
     @posts = Post.all
     @users = User.all
     @post = Post.new
+    @comment = Comment.new
     @incoming_request = Invitation.where(friend_id: current_user.id, confirmed: false)
   end
   
@@ -12,6 +13,7 @@ class PostsController < ApplicationController
   end
 
   def new
+
   end
 
   def create

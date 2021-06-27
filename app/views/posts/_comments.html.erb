@@ -1,0 +1,42 @@
+<%= form_with(model: @comment, method: :post) do |f| %>
+  <div class="title is-6">
+    Write a comment
+  </div>
+  <div class="field is-grouped">
+  <%= f.text_field :body, class: "input", placeholder: "Type your comment here..." %>
+  <%= f.hidden_field :post_id, value: post.id %>
+  <%= f.submit "Send", class: "button is-info" %>
+  </div>
+<% end %>
+<br />
+<% if post.comments.length > 0 %>
+  <div class="block">
+    <div class="title is-6">
+      Comments
+    </div>
+    <% post.comments.order("created_at DESC").each do |comment| %>
+      <div class="box">
+        <div class="level">
+          <div class="level-left">
+            <div class="level-item title is-6">
+              <%= "#{comment.user.firstname} #{comment.user.lastname}" %>
+            </div>
+          </div>
+          <div class="level-right">
+            <div class="level-item">
+            <div class="is-size-7">
+              <%= comment.created_at.strftime("%H:%M %F")%>
+            </div>
+              <% if comment.user == current_user %>
+                <%= link_to comment_path(comment), method: :delete do %>
+                  <span><i class="fas fa-times"></i></span>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+        <%= comment.body %>
+      </div>
+    <% end %>
+  <% end %>
+</div>

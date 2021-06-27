@@ -2,12 +2,15 @@ Rails.application.routes.draw do
   root 'posts#index'
 
   devise_for :users
-  resources :users do
-  end
+  resources :users
   resources :posts
+  resources :comments
 
   get 'likes/create'
   get 'likes/destroy'
+
+  get 'comments/create'
+  get 'comments/destroy'
   
   get 'invitations/create'
   get 'invitations/destroy'

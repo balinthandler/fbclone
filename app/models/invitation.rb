@@ -21,4 +21,5 @@ class Invitation < ApplicationRecord
     Invitation.where(user_id: id1, friend_id: id2, confirmed: false)
   end
 
+
 end
