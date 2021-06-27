@@ -1,52 +1,56 @@
-<% @posts.order("created_at DESC").each do |post|%>
-  <div class="box">
-    <div class="level">
-      <div class="level-left">
-        <div class="level-item">
-          <div class="title is-5">
-              <%= link_to "#{post.user.firstname} #{post.user.lastname}", user_path(post.user)%>
+<% if @posts %>
+  <div class="title is-5">
+    Posts
+  </div>
+  <% @posts.order("created_at DESC").each do |post|%>
+    <div class="box">
+      <div class="level">
+        <div class="level-left">
+          <div class="level-item">
+            <div class="title is-5">
+                <%= link_to "#{post.user.firstname} #{post.user.lastname}", user_path(post.user)%>
+            </div>
           </div>
         </div>
+        <% if post.user == current_user %>
+          <div class="level-right">
+            <div class="level-item">
+              <%= link_to post_path(post), method: :delete do %>
+                <button class="delete"></button>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
       </div>
-      <% if post.user == current_user %>
+      <div class="block">
+        <%= post.body %>
+      </div>
+      <div class="level">
+        <div class="level-left">
+          <div class="level-item">
+            <% if Like.where(post_id: post.id, user_id: current_user.id).first.nil? %>
+              <%= link_to likes_create_path(like: {post_id: post.id, user_id: current_user.id}) do %>
+                <i class="far fa-heart"></i>
+              <% end %>
+            <% else %>
+              <%= link_to likes_destroy_path(like: {post_id: post.id, user_id: current_user.id}) do %>
+                <i class="fas fa-heart"></i>
+              <% end %>
+            <% end %>
+            <%= "#{Like.where(post_id: post.id).count}"%>
+          </div>
+        </div>
         <div class="level-right">
           <div class="level-item">
-            <%= link_to post_path(post), method: :delete do %>
-              <button class="delete"></button>
-            <% end %>
+            <p class="is-size-7">
+              <%= post.created_at.localtime.strftime("Created at %H:%M %F") %>
+            </p>
           </div>
         </div>
-      <% end %>
-    </div>
-    <div class="block">
-      <%= post.body %>
-    </div>
-    <div class="level">
-      <div class="level-left">
-        <div class="level-item">
-          <% if Like.where(post_id: post.id, user_id: current_user.id).first.nil? %>
-            <%= link_to likes_create_path(like: {post_id: post.id, user_id: current_user.id}) do %>
-              <i class="far fa-heart"></i>
-            <% end %>
-          <% else %>
-            <%= link_to likes_destroy_path(like: {post_id: post.id, user_id: current_user.id}) do %>
-              <i class="fas fa-heart"></i>
-            <% end %>
-          <% end %>
-          <%= "#{Like.where(post_id: post.id).count}"%>
-          
-        </div>
       </div>
-      <div class="level-right">
-        <div class="level-item">
-          <p class="is-size-7">
-            <%= post.created_at.localtime.strftime("Created at %H:%M %F") %>
-          </p>
-        </div>
-      </div>
-    </div>
       <div class="block">
-        <%= render partial: 'comments', locals: {post: post} %>
+        <%= render partial: 'posts/comments', locals: {post: post} %>
       </div>
-  </div>
+    </div>
+  <% end %>
 <% end %>

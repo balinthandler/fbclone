@@ -9,6 +9,14 @@
     <% end %>
   </div>
     <div class="level-item">
+      <%= link_to user_path(current_user) do %>
+        <span class="fa-stack fa-lg ">
+          <i class="fa fa-circle fa-stack-2x"></i>
+          <i class="fa fa-user-circle fa-stack-1x fa-inverse"></i>
+        </span>
+      <% end %>
+    </div>
+    <div class="level-item">
         <%= link_to invitations_index_path do %>
           <% if @incoming_request && @incoming_request.count > 0 %> 
             <span class="fa-stack fa-lg" data-count="<%= @incoming_request.count %>">
@@ -16,7 +24,7 @@
             <span class="fa-stack fa-lg">
           <% end %>
           <i class="fa fa-circle fa-stack-2x"></i>
-          <i class="fa fa-user-alt fa-stack-1x fa-inverse"></i>
+          <i class="fas fa-user-friends fa-stack-1x fa-inverse"></i>
         <% end %>
     </div>
   </div>

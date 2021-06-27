@@ -2,7 +2,11 @@ class PostsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @posts = Post.all
+    friends_1 = Invitation.where(friend_id: current_user.id, confirmed: true).pluck('user_id')
+    friends_2 = Invitation.where(user_id: current_user.id, confirmed: true).pluck('friend_id')
+    friends_ids = friends_1 + friends_2 + [current_user.id]
+
+    @posts = Post.where(user_id: friends_ids)
     @users = User.all
     @post = Post.new
     @comment = Comment.new

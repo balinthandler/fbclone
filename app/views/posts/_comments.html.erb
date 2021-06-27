@@ -3,9 +3,9 @@
     Write a comment
   </div>
   <div class="field is-grouped">
-  <%= f.text_field :body, class: "input", placeholder: "Type your comment here..." %>
-  <%= f.hidden_field :post_id, value: post.id %>
-  <%= f.submit "Send", class: "button is-info" %>
+    <%= f.text_field :body, class: "input", placeholder: "Type your comment here..." %>
+    <%= f.hidden_field :post_id, value: post.id %>
+    <%= f.submit "Send", class: "button is-info" %>
   </div>
 <% end %>
 <br />
@@ -24,9 +24,9 @@
           </div>
           <div class="level-right">
             <div class="level-item">
-            <div class="is-size-7">
-              <%= comment.created_at.strftime("%H:%M %F")%>
-            </div>
+              <div class="is-size-7">
+                <%= comment.created_at.strftime("%H:%M %F")%>
+              </div>
               <% if comment.user == current_user %>
                 <%= link_to comment_path(comment), method: :delete do %>
                   <span><i class="fas fa-times"></i></span>
@@ -38,5 +38,5 @@
         <%= comment.body %>
       </div>
     <% end %>
-  <% end %>
-</div>
+  </div>
+<% end %>
