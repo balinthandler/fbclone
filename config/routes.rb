@@ -2,7 +2,8 @@ Rails.application.routes.draw do
   root 'posts#index'
 
   devise_for :users
-  resources :users
+  resources :users do
+  end
   resources :posts
   
   get 'invitations/create'

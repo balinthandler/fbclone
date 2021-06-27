@@ -1,28 +1,39 @@
 <% @posts.order("created_at DESC").each do |post|%>
-<div class="box">
-  <div class="level">
-    <div class="level-left">
-      <div class="level-item">
-        <div class="title is-5">
-            <%= link_to "#{post.user.firstname} #{post.user.lastname}", user_path(post.user)%>
+  <div class="box">
+    <div class="level">
+      <div class="level-left">
+        <div class="level-item">
+          <div class="title is-5">
+              <%= link_to "#{post.user.firstname} #{post.user.lastname}", user_path(post.user)%>
+          </div>
+        </div>
+      </div>
+      <% if post.user == current_user %>
+        <div class="level-right">
+          <div class="level-item">
+            <%= link_to post_path(post), method: :delete do %>
+              <button class="delete"></button>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <div class="block">
+          <%= post.body %>
+    </div>
+    <div class="level">
+      <div class="level-left">
+        <div class="level-item">
+      <i class="far fa-heart"></i>
+        </div>
+      </div>
+      <div class="level-right">
+        <div class="level-item">
+          <p class="is-size-7">
+            <%= post.created_at.localtime.strftime("Created at %H:%M %F") %>
+          </p>
         </div>
       </div>
     </div>
-    <% if post.user == current_user %>
-      <div class="level-right">
-        <div class="level-item">
-          <%= link_to post_path(post), method: :delete do %>
-            <button class="delete"></button>
-          <% end %>
-        </div>
-      </div>
-    <% end %>
   </div>
-  <div class="block">
-        <%= post.body %>
-  </div>
-  <p class="is-size-7">
-    <%= post.created_at.localtime.strftime("%H:%M %F") %>
-  </p>
-</div>
 <% end %>
