@@ -5,6 +5,9 @@ Rails.application.routes.draw do
   resources :users do
   end
   resources :posts
+
+  get 'likes/create'
+  get 'likes/destroy'
   
   get 'invitations/create'
   get 'invitations/destroy'

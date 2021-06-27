@@ -19,12 +19,22 @@
       <% end %>
     </div>
     <div class="block">
-          <%= post.body %>
+      <%= post.body %>
     </div>
     <div class="level">
       <div class="level-left">
         <div class="level-item">
-      <i class="far fa-heart"></i>
+          <% if Like.where(post_id: post.id, user_id: current_user.id).first.nil? %>
+            <%= link_to likes_create_path(like: {post_id: post.id, user_id: current_user.id}) do %>
+              <i class="far fa-heart"></i>
+            <% end %>
+          <% else %>
+            <%= link_to likes_destroy_path(like: {post_id: post.id, user_id: current_user.id}) do %>
+              <i class="fas fa-heart"></i>
+            <% end %>
+          <% end %>
+          <%= "#{Like.where(post_id: post.id).count}"%>
+          
         </div>
       </div>
       <div class="level-right">
