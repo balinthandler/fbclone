@@ -44,6 +44,7 @@ group :development do
   gem 'spring'
   gem 'guard', '~> 2.17'
   gem 'guard-livereload', '~> 2.5', require: false
+  gem 'guard-minitest'
 end
 
 group :test do
