@@ -22,6 +22,15 @@
             <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "input" %>
           </div>
 
+          <div class="field">
+            <%= f.label :avatar %><br />
+            <%= image_tag(resource.avatar_thumbnail, class: "icon_150") if resource.avatar.attached? %>
+          </div>
+
+          <div class="field">
+            <%= f.file_field :avatar %>
+          </div>
+
           <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
             <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
           <% end %>

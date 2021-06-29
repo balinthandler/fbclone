@@ -1,14 +1,15 @@
 <% if @posts %>
   <div class="title is-5">
-    Posts
+    News feed
   </div>
   <% @posts.order("created_at DESC").each do |post|%>
     <div class="box">
       <div class="level">
         <div class="level-left">
           <div class="level-item">
+            <%= image_tag(post.user.avatar_icon, class: "icon_50") %>
             <div class="title is-5">
-                <%= link_to "#{post.user.firstname} #{post.user.lastname}", user_path(post.user)%>
+              <%= link_to "#{post.user.firstname} #{post.user.lastname}", user_path(post.user)%>
             </div>
           </div>
         </div>
