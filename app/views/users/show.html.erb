@@ -2,10 +2,13 @@
   <div class="container">
     <div class="columns">
       <div class="column is-half is-offset-one-quarter">
-        <div class="box centered">
+        <div class="box centered profile">
           <%= image_tag(@user.avatar_thumbnail, class: "icon_150") %>
             <div class="title is-3">
               <%= "#{@user.firstname} #{@user.lastname}"%>
+            </div>
+            <div class="p">
+              Joined <%= @joined %>
             </div>
           <%= render 'friend_request_logic' %>
         </div>

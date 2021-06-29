@@ -27,7 +27,11 @@
           </div>
         <% end %>
         <div class="title is-5">
-          Your friends
+          <% if @friends_count <= 1 %>
+            Your have <%= @friends_count %> friend
+          <% else %>
+            Your have <%= @friends_count %> friends
+          <% end %>
         </div>
         <% @friends.each do |friend|%>
           <%= link_to "#{friend.firstname} #{friend.lastname}", user_path(friend) %>

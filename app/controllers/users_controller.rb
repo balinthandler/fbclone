@@ -9,6 +9,22 @@ class UsersController < ApplicationController
   def show
     @incoming_request = Invitation.where(friend_id: current_user.id, confirmed: false)
     @user = User.find(params[:id])
+    joined_since_seconds = (Time.now - @user.created_at).round
+    if joined_since_seconds / 60 < 1
+      @joined = "#{joined_since_seconds} seconds ago"
+    elsif joined_since_seconds / 60 == 1
+      @joined = "#{joined_since_seconds / 60} minute ago"
+    elsif joined_since_seconds / 60 / 60 < 1
+      @joined = "#{joined_since_seconds / 60} minutes ago"
+    elsif joined_since_seconds / 60 / 60 == 1
+      @joined = "#{joined_since_seconds / 60 / 60} hour ago"
+    elsif joined_since_seconds / 60 / 60 / 24 < 1
+      @joined = "#{joined_since_seconds / 60 / 60} hours ago"
+    elsif joined_since_seconds / 60 / 60 / 24 == 1
+      @joined = "#{joined_since_seconds / 60} day ago"
+    else
+      @joined = "#{joined_since_seconds / 60 / 60 / 24 } days ago"
+    end
     if Invitation.confirmed?(@user.id, current_user.id) || @user == current_user
       @posts = Post.where(user_id: params[:id])
     else

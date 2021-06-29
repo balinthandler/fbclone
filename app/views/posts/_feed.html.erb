@@ -2,6 +2,7 @@
   <div class="title is-5">
     Recent posts
   </div>
+
   <% @posts.order("created_at DESC").each do |post|%>
     <div class="box-container">
       <div class="box-top">
@@ -9,11 +10,18 @@
           <div class="level-left">
             <div class="level-item">
               <%= image_tag(post.user.avatar_icon, class: "icon_50", style: "margin-right: 0.5em") %>
-              <div class="title is-5">
-                <%= link_to "#{post.user.firstname} #{post.user.lastname}", user_path(post.user)%>
-              </div>
+              <div>
+                <div class="title is-5">
+                  <%= link_to "#{post.user.firstname} #{post.user.lastname}", user_path(post.user)%>
+                  <br />
+                </div>
+                  <p class="is-size-7">
+                    <%= Post.created_ago(post) %>
+                  </p>
+                </div>
             </div>
           </div>
+
           <% if post.user == current_user %>
             <div class="level-right">
               <div class="level-item">
@@ -28,31 +36,44 @@
           <%= post.body %>
         </div>
       </div>
+
       <div class="divider">
         <div class="level">
           <div class="level-left">
             <div class="level-item">
               <% if Like.where(post_id: post.id, user_id: current_user.id).first.nil? %>
-                <%= link_to likes_create_path(like: {post_id: post.id, user_id: current_user.id}) do %>
-                  <i class="far fa-heart"></i>
-                <% end %>
+                <i class="far fa-hand-spock"></i>
+                <%= "#{Like.where(post_id: post.id).count} people"%>
               <% else %>
-                <%= link_to likes_destroy_path(like: {post_id: post.id, user_id: current_user.id}) do %>
-                  <i class="fas fa-heart"></i> 
+                <i class="fas fa-hand-spock"></i> 
+                <% if Like.where(post_id: post.id).count > 1 %>
+                  <%= "You, and #{Like.where(post_id: post.id).count - 1} other people "%>
+                <% else %>
+                  You spocked it
                 <% end %>
               <% end %>
-              <%= "#{Like.where(post_id: post.id).count}"%>
             </div>
           </div>
+
           <div class="level-right">
             <div class="level-item">
-              <p class="is-size-7">
-                <%= post.created_at.localtime.strftime("Created at %H:%M %F") %>
+              <p >
+                <% if Like.where(post_id: post.id, user_id: current_user.id).first.nil? %>
+                  <%= link_to likes_create_path(like: {post_id: post.id, user_id: current_user.id}) do %>
+                    <i class="fas fa-hand-spock"></i> Spock it!
+                  <% end %>
+                <% else %>
+                  <%= link_to likes_destroy_path(like: {post_id: post.id, user_id: current_user.id}) do %>
+                    <i class="far fa-hand-spock"></i> Unspock it!
+                  <% end %>
+                <% end %>
               </p>
             </div>
           </div>
+
         </div>
       </div>
+
       <div class="box-bottom">
         <div class="block">
           <%= render partial: 'posts/comments', locals: {post: post} %>

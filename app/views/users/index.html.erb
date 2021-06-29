@@ -1,0 +1,33 @@
+<div class="section">
+  <div class="container">
+    <div class="columns">
+      <div class="column is-half is-offset-one-quarter">
+        <div class="title is-5">
+          People you may know
+        </div>
+        <div class="box">
+          <% @users.each do |user| %>
+            <div class="block">
+              <div class="level">
+                <div class="level-left">
+                  <div class="level-item">
+                    <%= link_to "#{user.firstname} #{user.lastname}", user_path(user) %>
+                  </div>
+                </div>
+                <div class="level-right">
+                  <div class="level-item">
+                    <% if Invitation.is_exists?(user.id, current_user.id) %>
+                      <% if Invitation.confirmed?(user.id, current_user.id) %>
+                        <%= link_to "Remove friend", invitations_destroy_path(user_id: current_user.id, friend_id: user.id) %>
+                      <% end %>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

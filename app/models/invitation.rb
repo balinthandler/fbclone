@@ -13,6 +13,10 @@ class Invitation < ApplicationRecord
     case1 || case2
   end
 
+  def self.friends_count(id)
+    Invitation.where(user_id: id, confirmed: true).count + Invitation.where(friend_id: id, confirmed: true).count
+  end
+
   def self.find_invitation_by_users(id1, id2)
       Invitation.where(user_id: id1, friend_id: id2, confirmed: true)
   end

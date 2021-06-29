@@ -6,6 +6,7 @@ class InvitationsController < ApplicationController
     friends_2 = Invitation.where(user_id: current_user.id, confirmed: true).pluck("friend_id")
     friends_ids = friends_1 + friends_2
     @friends = User.where(id: friends_ids)
+    @friends_count = Invitation.friends_count(current_user.id)
 
   end
   
@@ -23,12 +24,6 @@ class InvitationsController < ApplicationController
     invitation = Invitation.where(user_id: params[:user_id], friend_id: params[:friend_id]).or(Invitation.where(user_id: params[:friend_id], friend_id: params[:user_id])).first
     unless invitation.nil?
       invitation.destroy
-      if current_user.id == invitation.user_id
-        redirect_to user_path(invitation.friend_id)
-      else
-        redirect_to user_path(invitation.user_id)
-      end
-    else
       redirect_back(fallback_location: root_path)
     end
   end
