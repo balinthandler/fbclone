@@ -29,7 +29,7 @@
               </div>
               <% if comment.user == current_user %>
                 <%= link_to comment_path(comment), method: :delete do %>
-                  <span><i class="fas fa-times"></i></span>
+                  <span><i class="fas fa-times", style="margin-left: 0.5rem"></i></span>
                 <% end %>
               <% end %>
             </div>

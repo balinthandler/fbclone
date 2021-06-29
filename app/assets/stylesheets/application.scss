@@ -58,3 +58,52 @@
 .centered {
   text-align: center;
 }
+
+.divider {
+  background-color: steelblue;
+  margin: none;
+  padding: 0.25rem 1.25rem 0.25rem 1.25rem;
+  color: white;
+}
+.divider{
+  .far{
+    color: white;
+    margin-right: 0.25rem;
+  }
+  .fas{
+    margin-right: 0.25rem;
+    color: white;
+  }
+}
+
+.box-container {
+  padding: none;
+  border-radius: 10px;
+  margin-bottom: 1.25rem;
+  box-shadow: 2px 5px 10px 0px rgba(200,200,200, 0.35);
+}
+
+.box-top {
+  border-radius: 10px 10px 0px 0px;
+  box-shadow: none;
+  margin: none;
+  padding: 1.25rem;
+  border: 1px solid gainsboro;
+  border-bottom: none
+  
+}
+
+.box-bottom {
+  border: 1px solid gainsboro;
+  border-top: none;
+  box-shadow: none;
+  border-radius: 0px 0px 10px 10px ;
+  margin: none;
+  padding: 1.25rem;
+  background-color:aliceblue;
+
+  .box {
+    box-shadow: none;
+  }
+  
+}

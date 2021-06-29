@@ -11,6 +11,8 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     if Invitation.confirmed?(@user.id, current_user.id) || @user == current_user
       @posts = Post.where(user_id: params[:id])
+    else
+      @posts = []
     end
 
 
