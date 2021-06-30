@@ -14,7 +14,7 @@ class InvitationsController < ApplicationController
     unless Invitation.where(user_id: params[:friend_id], friend_id: current_user.id).first
       @invitation = Invitation.new(user_id: current_user.id, friend_id: params[:friend_id])
       @invitation.save
-      redirect_to user_path(params[:friend_id])
+      redirect_back(fallback_location: root_path)
     else
       redirect_back(fallback_location: root_path)
     end
@@ -32,7 +32,7 @@ class InvitationsController < ApplicationController
     invitation = Invitation.where(user_id: params[:user_id], friend_id: params[:friend_id]).or(Invitation.where(user_id: params[:friend_id], friend_id: params[:user_id])).first
     unless invitation.nil?
       invitation.update(confirmed: true)
-      redirect_to invitations_index_path
+      redirect_back(fallback_location: root_path)
     else
       redirect_back(fallback_location: root_path)
     end

@@ -5,19 +5,6 @@
         <%= render 'form' %>
         <%= render 'feed' %>
       </div>
-      <div class="column">
-        <div class="box">
-          <div class="title is-5">
-            Find friends
-          </div>
-          <% @users.where.not(id: current_user.id).each do |user| %>
-            <div class="block">
-              <%= link_to "#{user.firstname} #{user.lastname}", user_path(user) %>
-            </div>
-          <% end %>
-        </div>
-      </div>
-      
     </div>
   </div>
 </div>

@@ -20,9 +20,12 @@ class Invitation < ApplicationRecord
   def self.find_invitation_by_users(id1, id2)
       Invitation.where(user_id: id1, friend_id: id2, confirmed: true)
   end
+  def self.find_unaccepted(id1, id2)
+      Invitation.where(user_id: id1, friend_id: id2, confirmed: false).first
+  end
 
   def self.is_receiver?(id1, id2)
-    Invitation.where(user_id: id1, friend_id: id2, confirmed: false)
+    Invitation.where(user_id: id1, friend_id: id2, confirmed: false).first
   end
 
 

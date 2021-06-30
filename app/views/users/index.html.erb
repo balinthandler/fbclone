@@ -7,24 +7,31 @@
         </div>
         <div class="box">
           <% @users.each do |user| %>
-            <div class="block">
-              <div class="level">
-                <div class="level-left">
-                  <div class="level-item">
-                    <%= link_to "#{user.firstname} #{user.lastname}", user_path(user) %>
+            <% unless Invitation.confirmed?(user.id, current_user.id) || user == current_user %>
+              <div class="block">
+                <div class="level">
+                  <div class="level-left">
+                    <div class="level-item">
+                      <%= link_to "#{user.firstname} #{user.lastname}", user_path(user) %>
+                    </div>
                   </div>
-                </div>
-                <div class="level-right">
-                  <div class="level-item">
-                    <% if Invitation.is_exists?(user.id, current_user.id) %>
-                      <% if Invitation.confirmed?(user.id, current_user.id) %>
-                        <%= link_to "Remove friend", invitations_destroy_path(user_id: current_user.id, friend_id: user.id) %>
+                  <div class="level-right">
+                    <div class="level-item">
+                      <% if Invitation.find_unaccepted(current_user.id, user.id) %>
+                        <%= link_to "Request sent. Cancel?", invitations_destroy_path(user_id: current_user.id, friend_id: user.id), class: "button is-danger" %>
+                      <% elsif Invitation.is_receiver?(user.id, current_user.id) %>
+                        <div class="is-grouped">
+                          <%= link_to "Accept", invitations_update_path(user_id: user.id, friend_id: current_user.id), class: "button is-primary"%>
+                          <%= link_to "Decline", invitations_destroy_path(user_id: current_user.id, friend_id: user.id), class: "button is-danger" %>
+                        </div>
+                      <% else %>
+                        <%= link_to "Send friend request", invitations_create_path(friend_id: user.id), class: "button is-info" %>
                       <% end %>
-                    <% end %>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            <% end %>
           <% end %>
         </div>
       </div>
