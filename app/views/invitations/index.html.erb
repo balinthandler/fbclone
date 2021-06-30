@@ -2,30 +2,7 @@
   <div class="container">
     <div class="columns">
       <div class="column is-half is-offset-one-quarter">
-        <% if !@invitations.empty? %>
-        <div class="box">
-          <div class="title is-5">
-              Friend Requests
-          </div>
-            <% @invitations.each do |invitation| %>
-              <div class="level">
-                <div class="level-left">
-                  <div class="level-item">
-                    <%= "#{invitation.user.firstname} #{invitation.user.lastname}" %>
-                  </div>
-                </div>
-                <div class="level-right">
-                  <div class="level-item">
-                    <div class="is-grouped">
-                      <%= link_to "Accept", invitations_update_path(user_id: invitation.user_id, friend_id: invitation.friend_id), class: "button is-primary" %>
-                      <%= link_to "Decline", invitations_destroy_path(user_id: invitation.user_id, friend_id: invitation.friend_id), class: "button is-danger" %>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            <% end %>
-          </div>
-        <% end %>
+        <%= render 'request' %>
         <div class="title is-5">
           <% if @friends_count <= 1 %>
             Your have <%= @friends_count %> friend
@@ -34,7 +11,20 @@
           <% end %>
         </div>
         <% @friends.each do |friend|%>
-          <%= link_to "#{friend.firstname} #{friend.lastname}", user_path(friend) %>
+          <div class="box">
+            <div class="level">
+              <div class="level-left">
+                <div class="level-item">
+                  <%= link_to "#{friend.firstname} #{friend.lastname}", user_path(friend) %>
+                </div>
+              </div>
+              <div class="level-right">
+                <div class="level-item">
+                  <%= link_to "Remove friend", invitations_destroy_path(user_id: friend.id, friend_id: current_user.id), class: "button is-danger"%>
+                </div>
+              </div>
+            </div>
+          </div>
         <% end %>
       </div>
     </div>

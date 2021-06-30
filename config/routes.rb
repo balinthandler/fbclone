@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   resources :posts
   resources :comments
 
+  get 'profile', to: 'users#show'
+  get 'friends', to: 'invitations#index'
   get 'likes/create'
   get 'likes/destroy'
 

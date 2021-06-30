@@ -1,4 +1,4 @@
-<div class="column">
+<div class="column is-half is-offset-one-quarter">
   <div class="level">
   <div class="level-item">
     <%= link_to root_path do %>
@@ -9,7 +9,7 @@
     <% end %>
   </div>
     <div class="level-item">
-      <%= link_to user_path(current_user) do %>
+      <%= link_to profile_path do %>
         <span class="fa-stack fa-lg ">
           <i class="fa fa-circle fa-stack-2x"></i>
           <i class="fa fa-user-circle fa-stack-1x fa-inverse"></i>
@@ -17,7 +17,7 @@
       <% end %>
     </div>
     <div class="level-item">
-        <%= link_to invitations_index_path do %>
+        <%= link_to friends_path do %>
           <% if @incoming_request && @incoming_request.count > 0 %> 
             <span class="fa-stack fa-lg" data-count="<%= @incoming_request.count %>">
           <% else %>
