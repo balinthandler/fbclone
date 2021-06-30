@@ -45,6 +45,7 @@ group :development do
   gem 'guard', '~> 2.17'
   gem 'guard-livereload', '~> 2.5', require: false
   gem 'guard-minitest'
+
 end
 
 group :test do
@@ -62,7 +63,11 @@ gem "devise", "~> 4.8"
 
 gem "bulma-rails", "~> 0.9.1"
 
-gem 'omniauth'
-gem 'omniauth-facebook'
+gem 'omniauth-facebook', '~> 8.0'
 
 gem 'activerecord-session_store'
+
+gem "omniauth-rails_csrf_protection"
+
+gem 'thin'
+gem 'faye-websocket'

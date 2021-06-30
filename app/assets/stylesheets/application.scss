@@ -15,6 +15,10 @@
  */
  @import "bulma";
 
+.notification.is-danger {
+  margin: 0;
+}
+
 .navbar {
    background-color:royalblue;
  }
@@ -121,3 +125,4 @@
   }
   
 }
+

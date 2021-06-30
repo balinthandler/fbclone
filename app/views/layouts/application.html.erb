@@ -12,6 +12,12 @@
   </head>
 
   <body>
+    <% if flash[:error] %>
+      <div class="notification is-danger">
+        <%= flash[:error] %>
+      </div>
+    <% end %>
+    
     <%= render 'layouts/navbar' %>
     <% if user_signed_in? %>
       <%= render 'layouts/infobar' %>

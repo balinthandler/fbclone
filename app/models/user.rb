@@ -2,8 +2,10 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+         :recoverable, :rememberable, :validatable,
+         :omniauthable, omniauth_providers: [:facebook]
 
+         
   has_many :posts, dependent: :destroy
   has_many :invitations, dependent: :destroy
   has_many :pending_invitations, -> { where confirmed: false }, class_name: :Invitation, foreign_key: :friend_id, dependent: :destroy
@@ -11,6 +13,15 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_one_attached :avatar, dependent: :destroy
   after_commit :add_default_avatar, on: [:create, :update]
+  
+  def self.create_from_provider_data(provider_data)
+    where(provider: provider_data.provider, uid: provider_data.uid).first_or_create do |user|
+      user.firstname = provider_data.info.first_name
+      user.lastname = provider_data.info.last_name
+      user.email = provider_data.info.email
+      user.password = Devise.friendly_token[0, 20]
+    end
+  end   
 
   def friends
     friends_i_sent_invitation = Invitation.where(user_id: id, confirmed: true).pluck(:friend_id)
