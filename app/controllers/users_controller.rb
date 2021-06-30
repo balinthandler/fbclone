@@ -39,7 +39,7 @@ class UsersController < ApplicationController
     elsif joined_since_seconds / 60 / 60 / 24 < 1
       return "#{joined_since_seconds / 60 / 60} hours ago"
     elsif joined_since_seconds / 60 / 60 / 24 == 1
-      return "#{joined_since_seconds / 60} day ago"
+      return "#{joined_since_seconds / 60 / 60 / 24} day ago"
     else
       return "#{joined_since_seconds / 60 / 60 / 24 } days ago"
     end

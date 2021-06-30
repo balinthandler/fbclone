@@ -17,8 +17,8 @@ class Post < ApplicationRecord
     elsif created_since_seconds / 60 / 60 / 24 < 1
       return "#{created_since_seconds / 60 / 60} hours ago"
     elsif created_since_seconds / 60 / 60 / 24 == 1
-      return "#{created_since_seconds / 60} day ago"
-    else
+      return "#{created_since_seconds / 60 /60 /24 } day ago"
+    elsif created_since_seconds / 60 / 60 / 24 > 1
       return "#{created_since_seconds / 60 / 60 / 24 } days ago"
     end
   end
