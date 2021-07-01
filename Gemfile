@@ -68,3 +68,5 @@ gem 'omniauth-facebook', '~> 8.0'
 gem 'activerecord-session_store'
 
 gem "omniauth-rails_csrf_protection"
+
+gem 'figaro', '~> 1.2'

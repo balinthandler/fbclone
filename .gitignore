@@ -39,3 +39,5 @@ yarn-debug.log*
 /spring/*.pid
 
 /.ssl
+# Ignore application configuration
+/config/application.yml
