@@ -5,35 +5,37 @@
         <div class="title is-5">
           People you may know
         </div>
-        <div class="box">
-          <% @users.each do |user| %>
-            <% unless Invitation.confirmed?(user.id, current_user.id) || user == current_user %>
-              <div class="block">
-                <div class="level">
-                  <div class="level-left">
-                    <div class="level-item">
-                      <%= link_to "#{user.firstname} #{user.lastname}", user_path(user) %>
+        <% unless @users.empty? %>
+          <div class="box">
+            <% @users.each do |user| %>
+              <% unless Invitation.confirmed?(user.id, current_user.id) || user == current_user %>
+                <div class="block">
+                  <div class="level">
+                    <div class="level-left">
+                      <div class="level-item">
+                        <%= link_to "#{user.firstname} #{user.lastname}", user_path(user) %>
+                      </div>
                     </div>
-                  </div>
-                  <div class="level-right">
-                    <div class="level-item">
-                      <% if Invitation.find_unaccepted(current_user.id, user.id) %>
-                        <%= link_to "Request sent. Cancel?", invitations_destroy_path(user_id: current_user.id, friend_id: user.id), class: "button is-danger" %>
-                      <% elsif Invitation.is_receiver?(user.id, current_user.id) %>
-                        <div class="is-grouped">
-                          <%= link_to "Accept", invitations_update_path(user_id: user.id, friend_id: current_user.id), class: "button is-primary"%>
-                          <%= link_to "Decline", invitations_destroy_path(user_id: current_user.id, friend_id: user.id), class: "button is-danger" %>
-                        </div>
-                      <% else %>
-                        <%= link_to "Send friend request", invitations_create_path(friend_id: user.id), class: "button is-info" %>
-                      <% end %>
+                    <div class="level-right">
+                      <div class="level-item">
+                        <% if Invitation.find_unaccepted(current_user.id, user.id) %>
+                          <%= link_to "Request sent. Cancel?", invitations_destroy_path(user_id: current_user.id, friend_id: user.id), class: "button is-danger" %>
+                        <% elsif Invitation.is_receiver?(user.id, current_user.id) %>
+                          <div class="is-grouped">
+                            <%= link_to "Accept", invitations_update_path(user_id: user.id, friend_id: current_user.id), class: "button is-primary"%>
+                            <%= link_to "Decline", invitations_destroy_path(user_id: current_user.id, friend_id: user.id), class: "button is-danger" %>
+                          </div>
+                        <% else %>
+                          <%= link_to "Send friend request", invitations_create_path(friend_id: user.id), class: "button is-info" %>
+                        <% end %>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
+              <% end %>
             <% end %>
-          <% end %>
-        </div>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>

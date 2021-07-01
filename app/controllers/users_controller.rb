@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @users = User.all
+    @users = User.where.not(id: current_user.id)
     @incoming_request = Invitation.where(friend_id: current_user.id, confirmed: false)
   end
   
